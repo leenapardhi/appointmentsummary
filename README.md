@@ -14,11 +14,6 @@ AppointmentSummary_Assignment/
 │ └── database.go # Reads appointment data from PostgreSQL
 ├── sender/
 │ └── sender.go # Creates summary messages and stores them
-├── data_files.zip/
-│ ├── appointment.csv
-│ ├── center.csv
-│ ├── doctorstaff.csv
-│ └── patient.csv
 
 ---
 
@@ -84,13 +79,15 @@ CREATE TABLE CenterMessages (
     Message TEXT
 );
 
-4. 📥 Import CSV Data Using pgAdmin or psql
-Use pgAdmin's Import/Export option OR run this inside psql:
+4. 📥 Import CSV Data
+📝 Place your CSV files (appointment.csv, doctorstaff.csv, center.csv, patient.csv) into the CSV Files/ folder, and import them into pgAdmin using the Import option or psql:
 \copy Center FROM 'C:/path/center.csv' DELIMITER ',' CSV HEADER;
 \copy DoctorStaff FROM 'C:/path/doctorstaff.csv' DELIMITER ',' CSV HEADER;
 \copy Patient FROM 'C:/path/patient.csv' DELIMITER ',' CSV HEADER;
 \copy Appointment FROM 'C:/path/appointment.csv' DELIMITER ',' CSV HEADER;
-Ensure your file paths are correct and use double backslashes (\\) on Windows if needed.
+✅ Make sure file paths are correct. On Windows, escape with \\ or use double quotes.
+
+
 
 5. ⚙️ Update DB Connection Strings
 In database/database.go and sender/sender.go, update:
@@ -113,15 +110,6 @@ Fetches and groups appointment data
 Generates doctor- and center-level summaries
 Inserts generated messages into summary tables
 Structured and modular Go code
-
-## 📦 CSV Files
-The actual CSV files are compressed and included as `data_files.zip` in the root folder.
-To extract:
-- Unzip `data_files.zip`
-- Place the extracted files into the `CSV Files/` folder
-
-Make sure your PostgreSQL `COPY` or pgAdmin import path points to the unzipped CSV files.
-
 
 🧪 Test Case Tip
 To test quickly, insert sample data manually:
